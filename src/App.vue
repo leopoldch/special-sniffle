@@ -29,7 +29,6 @@ export default {
 #body{
   background-color: #b7c0c8;
 
-
 }
 
 </style>

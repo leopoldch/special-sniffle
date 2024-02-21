@@ -91,3 +91,27 @@
 }
 
 
+.action-wrapper{
+    width: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.button-container{
+    width: 15%;
+    padding: 1%;
+    margin:1%;
+}
+
+.button{
+    color: lightgray;
+    background-color: grey;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    border-width: 0.1;
+    border-color: lightgrey;
+    border-style: solid;
+}
+

@@ -18,33 +18,36 @@ days.set("SAMEDI..", 7)
 
 
 
+function fromStorage(){
+  let temp1 = Cookies.get('EDT')
+  let temp2 = Cookies.get('FIRTLINE')
+  let temp3 = Cookies.get('UVS')
 
-let temp1 = Cookies.get('EDT')
-let temp2 = Cookies.get('FIRTLINE')
-/*
-if(temp1 !== undefined && temp2 !== undefined){
-  console.log(temp1)
-  console.log(temp2)
-  temp1 = temp1.split(',');
-  let tab = [];
-  for(let i=0; i<temp1.length;i++){
-    if(temp1[i] in firstLine.value){
-      if(tab.length != 0){
-        myLines.value.push(tab);
-        tab = [];
-      }
-      tab.push(temp1[i])
-    }else{
-      tab.push(temp1[i])
-    }
-    if(i === temp1.length-1){
-      myLines.value.push(tab)
-    }
+  if(temp1 !== undefined && temp2 !== undefined && temp3 !== undefined){
+    firstLine.value = temp2.split(',');
+    UVs = new Map(JSON.parse(temp3))
+    myLines.value = JSON.parse(temp1)
+    console.log(UVs)
   }
-  firstLine.value = temp2.split(',');
 }
-console.log(myLines.value)
-*/
+
+fromStorage();
+
+function reset() {
+  text.value = '';
+  firstLine.value = [];
+  myLines.value = [];
+  UVs = new Map();
+  colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
+"#6A5ACD", "#F4A460"];
+}
+
+function clearStorage() {
+  reset();
+  Cookies.remove('EDT');
+  Cookies.remove('FIRTLINE');
+  Cookies.remove('UVS');
+}
 
 function shuffleArray(array) {
   for (let i = array.length -  1; i >  0; i--) {
@@ -81,7 +84,9 @@ function onInput(e) {
   }else{
     filterInputData();
     Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
-    Cookies.set('EDT', myLines.value,{ expires: undefined });
+    Cookies.set('EDT', JSON.stringify(myLines.value),{ expires: undefined });
+    Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
+    console.log(JSON.stringify(myLines.value));
   }
   console.log(myLines.value);
   console.log(firstLine.value);
@@ -205,6 +210,13 @@ function filterInputData() {
       </div>
     </div>
 
+  </div>
+
+
+  <div class="action-wrapper">
+    <div class="button-container">
+      <button class="button" @click="clearStorage" >Réinitialiser</button>
+    </div>
   </div>
 
 </template>
