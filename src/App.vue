@@ -1,17 +1,17 @@
 <script>
-import Form from './components/Form.vue'
+import Application from './components/Application.vue'
 
 export default {
   name: 'App',
   components: {
-    Form
+    Application
   }
 }
 </script>
 
 
 <template>
-  <Form msg="Coucou zeubi"/>
+  <Application msg="Coucou zeubi"/>
 </template>
 
 

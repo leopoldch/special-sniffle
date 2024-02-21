@@ -11,6 +11,7 @@ console.log(myLines.value);
 
 }
 function filterInputData() {
+    myLines.value = []
     const words = text.value.split(" ");
     let filteredData = words.filter(word => word != "")
     const nbUV = parseInt(filteredData[2]);
@@ -78,10 +79,20 @@ function filterInputData() {
 }
 
 
-
 </script>
+
+
 
 <template>
   <h1>Emploi du temps de : name</h1>
-  <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps ici ...">
+  <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
+  <div v-if="myLines.length >  0">
+    <div  v-for="(item, index) in myLines" :key="index">
+      <p>{{ item }}</p>
+    </div>
+  </div>
+
 </template>
+
+
+
