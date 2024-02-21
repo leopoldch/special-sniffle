@@ -8,12 +8,12 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 var UVs = new Map();
 var days = new Map();
 
-days.set("Lundi...", 0)
-days.set("Mardi...", 1)
-days.set("Mercredi", 2)
-days.set("Jeudi...", 3)
-days.set("Vendredi", 4)
-days.set("Samedi..", 5)
+days.set("LUNDI...", 0)
+days.set("MARDI...", 1)
+days.set("MERCREDI", 2)
+days.set("JEUDI...", 3)
+days.set("VENDREDI", 4)
+days.set("SAMEDI..", 5)
 
 
 
@@ -35,8 +35,8 @@ function pushTime(mystring){
   let hours_start = start.split(":")
   let hours_end = end.split(":")
 
-  let start_case = parseFloat(hours_start[0]-8) + parseFloat(hours_start[1]/60)
-  let end_case = parseFloat(hours_end[0]-8) + parseFloat(hours_end[1]/60)
+  let start_case = parseInt(hours_start[0]-8)*4 + parseInt(hours_start[1]/15)
+  let end_case = parseInt(hours_end[0]-8)*4 + parseInt(hours_end[1]/15)
 
   let returned_tab = [start_case,end_case]
   return returned_tab;
@@ -118,6 +118,7 @@ function filterInputData() {
       myLines.value[i].push(temp[0]);
       myLines.value[i].push(temp[1]);
       myLines.value[i].push(pushTime(temp[0]))
+      console.log(pushTime(temp[0]))
     }
 
     myLines.value.splice(0,1);
@@ -137,10 +138,9 @@ function filterInputData() {
   <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
     <div class="grid-container" v-if="myLines.length >  0">
-      <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][0] , gridColumn: days.get(item[2])}">
-        <h1>{{item[0]}}</h1>
-        <h2>{{item[3]}}</h2>
-        <h2>{{item[4]}} -- {{ item[1] }}</h2>
+      <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
+        <p>{{item[0]}}<br>
+        {{item[4]}} -- {{ item[1] }}</p>
       </div>
     </div>
 

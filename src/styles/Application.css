@@ -6,17 +6,11 @@
 }
 
 
-.test{
-    background-color: pink;
-}
 
 .grid-item{
-
     width: 10vw;
-    height: auto;
-    padding: 1%;
-    margin: 1%;
     border-radius: 10px;
+    border:  1px solid black; 
 }
 
 .grid-item > h1{
@@ -27,7 +21,6 @@
     font-size: small;
 }
 
-
 .grid-wrapper{
     margin-top: 2%;
     display: flex;
@@ -36,7 +29,7 @@
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(6, 0.2fr);
-    grid-template-rows: repeat(60, 0.05fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(6, 0.8fr);
+    grid-template-rows: repeat(60, 0.25fr);
+    grid-column-gap: 10px;
 }
