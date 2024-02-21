@@ -240,7 +240,7 @@ function filterInputData() {
     </div>
 
 
-    <div class="grid-container-items-wrapper">
+    <div v-if="myLines.length >  0" class="grid-container-items-wrapper">
       <div class="grid-container-horaires">
           <span v-for="i in  60" :key="i">
             <div class="horaires" :style="{ gridColumn:  1 }">
@@ -250,6 +250,11 @@ function filterInputData() {
         </div>
 
         <div class="grid-container" v-if="myLines.length >  0">
+
+            <span v-for="i in  320" :key="i">
+            <div class="grid-separator" :style="{ gridRow: i, gridColumn:  1 }"></div>
+          </span>
+          
 
           <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
             <p>{{item[0]}}<br>

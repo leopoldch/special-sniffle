@@ -123,9 +123,16 @@ input[type="text"] {
 
 .horaires{
     grid-column: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 
-
+.grid-separator{
+    border:  1px dotted grey; 
+    width: 100%;
+    height: 100%;
+}
 
 
 
@@ -154,13 +161,6 @@ input[type="text"] {
     grid-column: 6;
 }
 
-.borderbold, .border{
-    border-radius: 0;
-    width: 100%;
-    height: 100%;
-    grid-row-start: 2;
-    
-}
 
 
 .action-wrapper{
