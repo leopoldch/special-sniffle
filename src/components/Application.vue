@@ -3,6 +3,8 @@ import { ref } from 'vue'
 const text = ref('')
 const myLines = ref([]);
 const colors = ["red", "orange", "blue", "green", "yellow", "pink", "purple", "cyan"]
+var UVs = new Map();
+
 function onInput(e) {
   text.value = e.target.value
   if(text.value ===""){
@@ -22,7 +24,6 @@ function filterInputData() {
     firstLine.value.push(filteredData[0]);
     firstLine.value.push(filteredData[1]);
     firstLine.value.push(filteredData[2]);
-    var UVs = new Map();
 
     for(let i=0; i<nbUV; i++){
         firstLine.value.push(filteredData[3+i]);
@@ -93,7 +94,7 @@ function filterInputData() {
   <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
     <div class="grid-container" v-if="myLines.length >  0">
-    <div class="grid-item"  v-for="(item, index) in myLines" :key="index">
+    <div class="grid-item"  v-for="(item, index) in myLines" :key="index"  :style="{ backgroundColor: UVs.get(item[0]) }">
     <div v-if="index != 0">
       <h1>{{item[0]}}</h1>
         <h2>{{item[3]}}</h2>
