@@ -11,13 +11,12 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 var UVs = new Map();
 var days = new Map();
 
-days.set("LUNDI...", 2)
-days.set("MARDI...", 3)
-days.set("MERCREDI", 4)
-days.set("JEUDI...", 5)
-days.set("VENDREDI", 6)
-days.set("SAMEDI..", 7)
-
+days.set("LUNDI...", 1)
+days.set("MARDI...", 2)
+days.set("MERCREDI", 3)
+days.set("JEUDI...", 4)
+days.set("VENDREDI", 5)
+days.set("SAMEDI..", 6)
 
 
 function fromStorage(){
@@ -26,6 +25,7 @@ function fromStorage(){
   let temp3 = Cookies.get('UVS')
 
   if(temp1 !== undefined && temp2 !== undefined && temp3 !== undefined){
+    text.value = temp3;
     firstLine.value = temp2.split(',');
     UVs = new Map(JSON.parse(temp3))
     myLines.value = JSON.parse(temp1)
@@ -209,15 +209,15 @@ function filterInputData() {
     <p>Indication : Veuillez appuyer sur le bouton de réinitialisation et renouvelez la tentative.</p>
   </div>
   </div>
-  <div class="indications" v-if="text.length === 0">
+  <div class="indications" v-if="text.length === 0 ">
     <p>Indication : vous devez copier coller le texte à partir de votre login et jusqu'à la dernière ligne de vos UVs</p>
   </div>
 
   
   <input v-if="firstLine.length ==  0" class="input-text" type="text" :value="text" @input="onInput" :placeholder="`Copiez collez votre emploi du temps  ici...`">
   <div class="grid-wrapper" id="edt" >
-  
-    <div class="grid-container-title" v-if="myLines.length >  0">
+    <div class="grid-container-title-wrapper">
+      <div class="grid-container-title" v-if="myLines.length >  0">
       <div class="title1">
         <p>Lundi</p>
       </div>
@@ -237,23 +237,29 @@ function filterInputData() {
         <p>Samedi</p>
       </div>
     </div>
-
-    <div class="grid-container" v-if="myLines.length >  0">
-
-      <span v-for="j in   7" :key="j">
-        <span v-for="i in 15" :key="i">
-
-        </span>
-      </span>
-      
-
-      <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
-        <p>{{item[0]}}<br>
-        {{item[4]}} -- {{ item[1] }}</p>
-      </div>
     </div>
 
-  </div>
+
+    <div class="grid-container-items-wrapper">
+      <div class="grid-container-horaires">
+          <span v-for="i in  60" :key="i">
+            <div class="horaires" :style="{ gridColumn:  1 }">
+              <p v-if="i%4 == 0">{{ i/4 +7 }}:00</p>
+            </div>
+          </span>
+        </div>
+
+        <div class="grid-container" v-if="myLines.length >  0">
+
+          <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
+            <p>{{item[0]}}<br>
+            {{item[4]}} -- {{ item[1] }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
 
 
   <div class="action-wrapper">

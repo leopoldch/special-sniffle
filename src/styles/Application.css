@@ -81,11 +81,13 @@ input[type="text"] {
 .grid-container{
     border-radius: 5px;
     display: grid;
-    grid-template-columns: repeat(7, 0.7fr);
+    grid-template-columns: repeat(6, 0.7fr);
     grid-template-rows: repeat(60, 0.25fr);
     background-color: rgb(221, 221, 221);
     position: relative;
+    width: 90%;
 }
+
 .grid-container > div {
     display: flex;
     align-items: center;
@@ -93,10 +95,39 @@ input[type="text"] {
 }
 
 
+.grid-container-title-wrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .grid-container-title{
     display: grid;
-    grid-template-columns: repeat(7, 0.7fr);
+    grid-template-columns: repeat(6, 0.7fr);
+    width: 90%;
+
 }
+
+.grid-container-items-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.grid-container-horaires{
+    display: grid;
+    grid-template-columns: repeat(1, 0.7fr);
+    grid-template-rows: repeat(60, 0.25fr);
+    position: relative;
+    width: 10%;
+}
+
+.horaires{
+    grid-column: 1;
+}
+
+
+
+
 
 .grid-container-title > div{
     display: flex;
@@ -105,22 +136,22 @@ input[type="text"] {
 }
 
 .title1{
-    grid-column: 2;
+    grid-column: 1;
 }
 .title2{
-    grid-column: 3;
+    grid-column: 2;
 }
 .title3{
-    grid-column: 4;
+    grid-column: 3;
 }
 .title4{
-    grid-column: 5;
+    grid-column: 4;
 }
 .title5{
-    grid-column: 6;
+    grid-column: 5;
 }
 .title6{
-    grid-column: 7;
+    grid-column: 6;
 }
 
 .borderbold, .border{
@@ -155,8 +186,6 @@ input[type="text"] {
     border: 0;
     padding: 3%;
 }
-
-
 
 .button:hover{
     cursor: pointer;
