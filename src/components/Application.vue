@@ -3,7 +3,20 @@ import { ref } from 'vue'
 const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
-let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA"]
+let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
+"#6A5ACD", "#F4A460"]
+var UVs = new Map();
+var days = new Map();
+
+days.set("Lundi...", 0)
+days.set("Mardi...", 1)
+days.set("Mercredi", 2)
+days.set("Jeudi...", 3)
+days.set("Vendredi", 4)
+days.set("Samedi..", 5)
+
+
+
 
 function shuffleArray(array) {
   for (let i = array.length -  1; i >  0; i--) {
@@ -12,13 +25,31 @@ function shuffleArray(array) {
   }
   return array;
 }
-colors = shuffleArray(colors)
-var UVs = new Map();
+
+
+function pushTime(mystring){
+  let tab = mystring.split("-");
+  let start = tab[0]
+  let end = tab[1]
+
+  let hours_start = start.split(":")
+  let hours_end = end.split(":")
+
+  let start_case = parseFloat(hours_start[0]-8) + parseFloat(hours_start[1]/60)
+  let end_case = parseFloat(hours_end[0]-8) + parseFloat(hours_end[1]/60)
+
+  let returned_tab = [start_case,end_case]
+  return returned_tab;
+
+}
+
 
 function onInput(e) {
   text.value = e.target.value
+  colors = shuffleArray(colors)
   if(text.value ===""){
     myLines.value = [];
+    firstLine.value = []
   }else{
     filterInputData();
   }
@@ -51,7 +82,7 @@ function filterInputData() {
               myLines.value.push(line.value);
               line.value = [];
               line.value.push(filteredData[i]);
-              console.log(filteredData[i])
+
       }else{
               line.value.push(filteredData[i]);
       }
@@ -86,6 +117,7 @@ function filterInputData() {
       myLines.value[i].splice(myLines.value[i].length-1,1);
       myLines.value[i].push(temp[0]);
       myLines.value[i].push(temp[1]);
+      myLines.value[i].push(pushTime(temp[0]))
     }
 
     myLines.value.splice(0,1);
@@ -105,12 +137,13 @@ function filterInputData() {
   <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
     <div class="grid-container" v-if="myLines.length >  0">
-    <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]) }" >
-      <h1>{{item[0]}}</h1>
+      <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][0] , gridColumn: days.get(item[2])}">
+        <h1>{{item[0]}}</h1>
         <h2>{{item[3]}}</h2>
         <h2>{{item[4]}} -- {{ item[1] }}</h2>
+      </div>
     </div>
-  </div>
+
   </div>
 
 </template>
