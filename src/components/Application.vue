@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import Cookies from 'js-cookie';
 const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
@@ -8,15 +9,42 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 var UVs = new Map();
 var days = new Map();
 
-days.set("LUNDI...", 1)
-days.set("MARDI...", 2)
-days.set("MERCREDI", 3)
-days.set("JEUDI...", 4)
-days.set("VENDREDI", 5)
-days.set("SAMEDI..", 6)
+days.set("LUNDI...", 2)
+days.set("MARDI...", 3)
+days.set("MERCREDI", 4)
+days.set("JEUDI...", 5)
+days.set("VENDREDI", 6)
+days.set("SAMEDI..", 7)
 
 
 
+
+let temp1 = Cookies.get('EDT')
+let temp2 = Cookies.get('FIRTLINE')
+/*
+if(temp1 !== undefined && temp2 !== undefined){
+  console.log(temp1)
+  console.log(temp2)
+  temp1 = temp1.split(',');
+  let tab = [];
+  for(let i=0; i<temp1.length;i++){
+    if(temp1[i] in firstLine.value){
+      if(tab.length != 0){
+        myLines.value.push(tab);
+        tab = [];
+      }
+      tab.push(temp1[i])
+    }else{
+      tab.push(temp1[i])
+    }
+    if(i === temp1.length-1){
+      myLines.value.push(tab)
+    }
+  }
+  firstLine.value = temp2.split(',');
+}
+console.log(myLines.value)
+*/
 
 function shuffleArray(array) {
   for (let i = array.length -  1; i >  0; i--) {
@@ -35,8 +63,8 @@ function pushTime(mystring){
   let hours_start = start.split(":")
   let hours_end = end.split(":")
 
-  let start_case = parseInt(hours_start[0]-7)*4 + parseInt(hours_start[1]/15)
-  let end_case = parseInt(hours_end[0]-7)*4 + parseInt(hours_end[1]/15)
+  let start_case = parseInt(hours_start[0]-7)*4 + parseInt(hours_start[1]/15) 
+  let end_case = parseInt(hours_end[0]-7)*4 + parseInt(hours_end[1]/15) 
 
   let returned_tab = [start_case,end_case]
   return returned_tab;
@@ -52,6 +80,8 @@ function onInput(e) {
     firstLine.value = []
   }else{
     filterInputData();
+    Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
+    Cookies.set('EDT', myLines.value,{ expires: undefined });
   }
   console.log(myLines.value);
   console.log(firstLine.value);
@@ -161,6 +191,14 @@ function filterInputData() {
     </div>
 
     <div class="grid-container" v-if="myLines.length >  0">
+
+      <span v-for="j in   7" :key="j">
+        <span v-for="i in 15" :key="i">
+
+        </span>
+      </span>
+      
+
       <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
         <p>{{item[0]}}<br>
         {{item[4]}} -- {{ item[1] }}</p>

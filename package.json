@@ -9,10 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "js-cookie": "^3.0.5",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-vue": "^0.11.0",
     "vue": "^3.2.13",
-    "vue-semantic-ui": "^1.0.0"
+    "vue-semantic-ui": "^1.0.0",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

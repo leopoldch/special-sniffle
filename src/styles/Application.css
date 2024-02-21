@@ -14,7 +14,7 @@
 
 
 .grid-item{
-    width: 10vw;
+    width: 98%;
     border-radius: 10px;
     border:  1px solid black; 
 }
@@ -34,14 +34,16 @@
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(6, 0.8fr);
+    grid-template-columns: repeat(7, 0.7fr);
     grid-template-rows: repeat(60, 0.25fr);
-    grid-column-gap: 5px;
     background-color: aliceblue;
+    position: relative;
 }
 .grid-container > div {
     display: flex;
@@ -52,8 +54,7 @@
 
 .grid-container-title{
     display: grid;
-    grid-template-columns: repeat(6, 0.8fr);
-    grid-column-gap: 10px;
+    grid-template-columns: repeat(7, 0.7fr);
 }
 
 .grid-container-title > div{
@@ -63,21 +64,30 @@
 }
 
 .title1{
-    grid-column: 1;
-}
-.title2{
     grid-column: 2;
 }
-.title3{
+.title2{
     grid-column: 3;
 }
-.title4{
+.title3{
     grid-column: 4;
 }
-.title5{
+.title4{
     grid-column: 5;
 }
-.title6{
+.title5{
     grid-column: 6;
 }
+.title6{
+    grid-column: 7;
+}
+
+.borderbold, .border{
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    grid-row-start: 2;
+    
+}
+
 
