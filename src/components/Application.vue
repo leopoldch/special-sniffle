@@ -130,12 +130,13 @@ function filterInputData() {
 
 <template>
   <div v-if="firstLine.length != 0">
-    <h1>Emploi du temps de : {{ firstLine[0] }}</h1>
+    <h1 class="title-scheluded">Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
   <div v-else>
-    <h1>Emploi du temps</h1>
+    <h1 class="title-scheluded">Emploi du temps</h1>
   </div>
-  <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
+  
+  <input v-if="firstLine.length == 0" class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
     <div class="grid-container" v-if="myLines.length >  0">
       <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
