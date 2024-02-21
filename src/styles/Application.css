@@ -1,3 +1,9 @@
+
+
+.title-scheluded{
+    font-weight: bolder;
+}
+
 .input-text{
     width: 40vw;
     height: 25vh;
@@ -6,17 +12,11 @@
 }
 
 
-.test{
-    background-color: pink;
-}
 
 .grid-item{
-
-    width: 10vw;
-    height: auto;
-    padding: 1%;
-    margin: 1%;
+    width: 98%;
     border-radius: 10px;
+    border:  1px solid black; 
 }
 
 .grid-item > h1{
@@ -27,16 +27,91 @@
     font-size: small;
 }
 
-
 .grid-wrapper{
+    width: 80%;
     margin-top: 2%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid-container{
     display: grid;
-    grid-template-columns: repeat(6, 0.2fr);
-    grid-template-rows: repeat(60, 0.05fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(7, 0.7fr);
+    grid-template-rows: repeat(60, 0.25fr);
+    background-color: aliceblue;
+    position: relative;
 }
+.grid-container > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.grid-container-title{
+    display: grid;
+    grid-template-columns: repeat(7, 0.7fr);
+}
+
+.grid-container-title > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title1{
+    grid-column: 2;
+}
+.title2{
+    grid-column: 3;
+}
+.title3{
+    grid-column: 4;
+}
+.title4{
+    grid-column: 5;
+}
+.title5{
+    grid-column: 6;
+}
+.title6{
+    grid-column: 7;
+}
+
+.borderbold, .border{
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    grid-row-start: 2;
+    
+}
+
+
+.action-wrapper{
+    width: 100;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.button-container{
+    width: 15%;
+    padding: 1%;
+    margin:1%;
+}
+
+.button{
+    color: lightgray;
+    background-color: grey;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    border-width: 0.1;
+    border-color: lightgrey;
+    border-style: solid;
+}
+
