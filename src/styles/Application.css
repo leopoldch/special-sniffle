@@ -1,0 +1,35 @@
+.input-text{
+    width: 40vw;
+    height: 25vh;
+}
+
+
+.grid-item{
+
+    width: 20vw;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 10px;
+    background-color: brown;
+}
+
+.grid-item > h1{
+    font-size: small;
+}
+
+.grid-item > h2{
+    font-size: small;
+}
+
+
+.grid-wrapper{
+    width: 80vw;
+}
+
+.grid-container{
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(6, 0.5fr);
+    grid-template-rows: repeat(60, 0.05fr);
+    grid-gap: 10px;
+}

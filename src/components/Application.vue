@@ -5,9 +5,12 @@ const myLines = ref([]);
 const colors = ["red", "orange", "blue", "green", "yellow", "pink", "purple", "cyan"]
 function onInput(e) {
   text.value = e.target.value
-  filterInputData();
-
-console.log(myLines.value);
+  if(text.value ===""){
+    myLines.value = [];
+  }else{
+    filterInputData();
+  }
+  console.log(myLines.value);
 
 }
 function filterInputData() {
@@ -75,24 +78,33 @@ function filterInputData() {
 
 
     }
-    return UVs;
 }
 
 
 </script>
 
-
-
 <template>
-  <h1>Emploi du temps de : name</h1>
+  <div v-if="myLines.length != 0 && myLines[0].length != 0">
+    <h1>Emploi du temps de : {{ myLines[0][0] }}</h1>
+  </div>
+  <div v-else>
+    <h1>Emploi du temps</h1>
+  </div>
   <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
-  <div v-if="myLines.length >  0">
-    <div  v-for="(item, index) in myLines" :key="index">
-      <p>{{ item }}</p>
+  <div class="grid-wrapper">
+    <div class="grid-container" v-if="myLines.length >  0">
+    <div class="grid-item"  v-for="(item, index) in myLines" :key="index">
+    <div v-if="index != 0">
+      <h1>{{item[0]}}</h1>
+        <h2>{{item[3]}}</h2>
+        <h2>{{item[4]}} -- {{ item[1] }}</h2>
+    </div>   
     </div>
+  </div>
   </div>
 
 </template>
 
-
-
+<style>
+  @import '../styles/Application.css';
+</style>
