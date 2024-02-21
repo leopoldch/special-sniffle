@@ -28,14 +28,56 @@
 }
 
 .grid-wrapper{
+    width: 80%;
     margin-top: 2%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .grid-container{
     display: grid;
     grid-template-columns: repeat(6, 0.8fr);
     grid-template-rows: repeat(60, 0.25fr);
+    grid-column-gap: 5px;
+    background-color: aliceblue;
+}
+.grid-container > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.grid-container-title{
+    display: grid;
+    grid-template-columns: repeat(6, 0.8fr);
     grid-column-gap: 10px;
 }
+
+.grid-container-title > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title1{
+    grid-column: 1;
+}
+.title2{
+    grid-column: 2;
+}
+.title3{
+    grid-column: 3;
+}
+.title4{
+    grid-column: 4;
+}
+.title5{
+    grid-column: 5;
+}
+.title6{
+    grid-column: 6;
+}
+

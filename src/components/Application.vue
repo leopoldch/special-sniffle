@@ -8,12 +8,12 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 var UVs = new Map();
 var days = new Map();
 
-days.set("LUNDI...", 0)
-days.set("MARDI...", 1)
-days.set("MERCREDI", 2)
-days.set("JEUDI...", 3)
-days.set("VENDREDI", 4)
-days.set("SAMEDI..", 5)
+days.set("LUNDI...", 1)
+days.set("MARDI...", 2)
+days.set("MERCREDI", 3)
+days.set("JEUDI...", 4)
+days.set("VENDREDI", 5)
+days.set("SAMEDI..", 6)
 
 
 
@@ -35,8 +35,8 @@ function pushTime(mystring){
   let hours_start = start.split(":")
   let hours_end = end.split(":")
 
-  let start_case = parseInt(hours_start[0]-8)*4 + parseInt(hours_start[1]/15)
-  let end_case = parseInt(hours_end[0]-8)*4 + parseInt(hours_end[1]/15)
+  let start_case = parseInt(hours_start[0]-7)*4 + parseInt(hours_start[1]/15)
+  let end_case = parseInt(hours_end[0]-7)*4 + parseInt(hours_end[1]/15)
 
   let returned_tab = [start_case,end_case]
   return returned_tab;
@@ -138,6 +138,28 @@ function filterInputData() {
   
   <input v-if="firstLine.length == 0" class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
+  
+    <div class="grid-container-title" v-if="myLines.length >  0">
+      <div class="title1">
+        <p>Lundi</p>
+      </div>
+      <div class="title2">
+        <p>Mardi</p>
+      </div>
+      <div class="title3">
+        <p>Mercredi</p>
+      </div>
+      <div class="title4">
+        <p>Jeudi</p>
+      </div>
+      <div class="title5">
+        <p>Vendredi</p>
+      </div>
+      <div class="title6">
+        <p>Samedi</p>
+      </div>
+    </div>
+
     <div class="grid-container" v-if="myLines.length >  0">
       <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
         <p>{{item[0]}}<br>
