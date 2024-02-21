@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
+import html2pdf from 'html2pdf.js';
+
 const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
@@ -9,13 +11,12 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 var UVs = new Map();
 var days = new Map();
 
-days.set("LUNDI...", 2)
-days.set("MARDI...", 3)
-days.set("MERCREDI", 4)
-days.set("JEUDI...", 5)
-days.set("VENDREDI", 6)
-days.set("SAMEDI..", 7)
-
+days.set("LUNDI...", 1)
+days.set("MARDI...", 2)
+days.set("MERCREDI", 3)
+days.set("JEUDI...", 4)
+days.set("VENDREDI", 5)
+days.set("SAMEDI..", 6)
 
 
 function fromStorage(){
@@ -24,6 +25,7 @@ function fromStorage(){
   let temp3 = Cookies.get('UVS')
 
   if(temp1 !== undefined && temp2 !== undefined && temp3 !== undefined){
+    text.value = temp3;
     firstLine.value = temp2.split(',');
     UVs = new Map(JSON.parse(temp3))
     myLines.value = JSON.parse(temp1)
@@ -58,6 +60,21 @@ function shuffleArray(array) {
 }
 
 
+function exportToPDF(){
+  var element = document.getElementById('edt');
+  const opt = {
+  margin:       0,
+  filename:     'sniffle_UTC_edt.pdf',
+  image:        { type: 'jpeg', quality:   0.999 },
+  html2canvas:  { scale:   1 },
+  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+};
+  html2pdf().set(opt).from(element).save()
+}
+
+
+
+
 function pushTime(mystring){
   let tab = mystring.split("-");
   let start = tab[0]
@@ -82,11 +99,16 @@ function onInput(e) {
     myLines.value = [];
     firstLine.value = []
   }else{
-    filterInputData();
-    Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
-    Cookies.set('EDT', JSON.stringify(myLines.value),{ expires: undefined });
-    Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
-    console.log(JSON.stringify(myLines.value));
+    try{
+      filterInputData();
+      Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
+      Cookies.set('EDT', JSON.stringify(myLines.value),{ expires: undefined });
+      Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
+      console.log(JSON.stringify(myLines.value));
+    }catch(error){
+      console.log("erreur d'input")
+    }
+
   }
   console.log(myLines.value);
   console.log(firstLine.value);
@@ -111,12 +133,12 @@ function filterInputData() {
     for(let i=2+nbUV+1; i<filteredData.length; i++){
       let verifier = false;
       if(UVs.has(filteredData[i])){
-          verifier = true;
+          verifier = true
       }
       if(verifier){
               myLines.value.push(line.value);
               line.value = [];
-              line.value.push(filteredData[i]);
+              line.value.push(filteredData[i])
 
       }else{
           if(filteredData[i].substring(0,1) === "/"){
@@ -127,12 +149,12 @@ function filterInputData() {
             line.value.push(myLines.value[myLines.value.length -1][2])
             line.value.push(filteredData[i].substring(1,filteredData[i].length))
           }else{
-            line.value.push(filteredData[i]);
+            line.value.push(filteredData[i])
           }
       }
 
     if(i === filteredData.length-1){
-        myLines.value.push(line.value);
+        myLines.value.push(line.value)
     }
     }
 
@@ -166,25 +188,36 @@ function filterInputData() {
       console.log(pushTime(temp[0]))
     }
 
-    myLines.value.splice(0,1);
-
+    myLines.value.splice(0,1)
 }
 
 
 </script>
 
 <template>
-  <div v-if="firstLine.length != 0">
+  <div v-if="text.length > 4">
     <h1 class="title-scheluded">Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
-  <div v-else>
+  <div v-else-if="text.length === 0">
     <h1 class="title-scheluded">Emploi du temps</h1>
   </div>
+  <div v-else>
+    <div>
+      <h1 class="title-scheluded">Emploi du temps : Erreur d'entrée</h1>
+    </div>
+    <div class="indications" >
+    <p>Indication : Veuillez appuyer sur le bouton de réinitialisation et renouvelez la tentative.</p>
+  </div>
+  </div>
+  <div class="indications" v-if="text.length === 0 ">
+    <p>Indication : vous devez copier coller le texte à partir de votre login et jusqu'à la dernière ligne de vos UVs</p>
+  </div>
+
   
-  <input v-if="firstLine.length == 0" class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
-  <div class="grid-wrapper">
-  
-    <div class="grid-container-title" v-if="myLines.length >  0">
+  <input v-if="firstLine.length ==  0" class="input-text" type="text" :value="text" @input="onInput" :placeholder="`Copiez collez votre emploi du temps  ici...`">
+  <div class="grid-wrapper" id="edt" >
+    <div class="grid-container-title-wrapper">
+      <div class="grid-container-title" v-if="myLines.length >  0">
       <div class="title1">
         <p>Lundi</p>
       </div>
@@ -204,27 +237,42 @@ function filterInputData() {
         <p>Samedi</p>
       </div>
     </div>
-
-    <div class="grid-container" v-if="myLines.length >  0">
-
-      <span v-for="j in   7" :key="j">
-        <span v-for="i in 15" :key="i">
-
-        </span>
-      </span>
-      
-
-      <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
-        <p>{{item[0]}}<br>
-        {{item[4]}} -- {{ item[1] }}</p>
-      </div>
     </div>
 
-  </div>
+
+    <div v-if="myLines.length >  0" class="grid-container-items-wrapper">
+      <div class="grid-container-horaires">
+          <span v-for="i in  60" :key="i">
+            <div class="horaires" :style="{ gridColumn:  1 }">
+              <p v-if="i%4 == 0">{{ i/4 +7 }}:00</p>
+            </div>
+          </span>
+        </div>
+
+        <div class="grid-container" v-if="myLines.length >  0">
+            
+            <span v-for="i in  320" :key="i">
+              <div class="grid-separator" :style="{ gridRow: i, gridColumn:  1 }"></div>
+            </span>
+          
+
+          <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
+            <div class="grid-subitem">
+              <p>{{item[0]}}<br>{{ item[3] + " - " }}{{item[4] + " - " }} {{ item[1] }}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
 
 
   <div class="action-wrapper">
-    <div class="button-container">
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="exportToPDF">Export PDF</button>
+    </div>
+    <div class="button1-container">
       <button class="button" @click="clearStorage" >Réinitialiser</button>
     </div>
   </div>
