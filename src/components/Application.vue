@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
+import html2pdf from 'html2pdf.js';
+
 const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
@@ -8,7 +10,6 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 "#6A5ACD", "#F4A460"]
 var UVs = new Map();
 var days = new Map();
-const errors = ref(false)
 
 days.set("LUNDI...", 2)
 days.set("MARDI...", 3)
@@ -59,6 +60,21 @@ function shuffleArray(array) {
 }
 
 
+function exportToPDF(){
+  var element = document.getElementById('edt');
+  const opt = {
+  margin:       0,
+  filename:     'sniffle_UTC_edt.pdf',
+  image:        { type: 'jpeg', quality:   0.999 },
+  html2canvas:  { scale:   1 },
+  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+};
+  html2pdf().set(opt).from(element).save()
+};
+
+
+
+
 function pushTime(mystring){
   let tab = mystring.split("-");
   let start = tab[0]
@@ -90,7 +106,6 @@ function onInput(e) {
       Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
       console.log(JSON.stringify(myLines.value));
     }catch(error){
-      error.value = true;
       console.log("erreur d'input")
     }
 
@@ -181,18 +196,27 @@ function filterInputData() {
 </script>
 
 <template>
-  <div v-if="text.length > 40">
+  <div v-if="text.length > 4">
     <h1 class="title-scheluded">Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
   <div v-else-if="text.length === 0">
     <h1 class="title-scheluded">Emploi du temps</h1>
   </div>
   <div v-else>
-    <h1 class="title-scheluded">Emploi du temps : Erreur d'entrée, veuillez réinitialiser et recopier coller</h1>
+    <div>
+      <h1 class="title-scheluded">Emploi du temps : Erreur d'entrée</h1>
+    </div>
+    <div class="indications" >
+    <p>Indication : Veuillez appuyer sur le bouton de réinitialisation et renouvelez la tentative.</p>
   </div>
+  </div>
+  <div class="indications" v-if="text.length === 0">
+    <p>Indication : vous devez copier coller le texte à partir de votre login et jusqu'à la dernière ligne de vos UVs</p>
+  </div>
+
   
-  <input v-if="firstLine.length == 0" class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
-  <div class="grid-wrapper">
+  <input v-if="firstLine.length ==  0" class="input-text" type="text" :value="text" @input="onInput" :placeholder="`Copiez collez votre emploi du temps  ici...`">
+  <div class="grid-wrapper" id="edt" >
   
     <div class="grid-container-title" v-if="myLines.length >  0">
       <div class="title1">
@@ -234,7 +258,10 @@ function filterInputData() {
 
 
   <div class="action-wrapper">
-    <div class="button-container">
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="exportToPDF">Export PDF</button>
+    </div>
+    <div class="button1-container">
       <button class="button" @click="clearStorage" >Réinitialiser</button>
     </div>
   </div>
