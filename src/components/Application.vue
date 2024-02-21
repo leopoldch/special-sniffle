@@ -119,7 +119,16 @@ function filterInputData() {
               line.value.push(filteredData[i]);
 
       }else{
-              line.value.push(filteredData[i]);
+          if(filteredData[i].substring(0,1) === "/"){
+            myLines.value.push(line.value);
+            line.value = [];
+            line.value.push(myLines.value[myLines.value.length -1][0])
+            line.value.push(myLines.value[myLines.value.length -1][1])
+            line.value.push(myLines.value[myLines.value.length -1][2])
+            line.value.push(filteredData[i].substring(1,filteredData[i].length))
+          }else{
+            line.value.push(filteredData[i]);
+          }
       }
 
     if(i === filteredData.length-1){
@@ -136,7 +145,8 @@ function filterInputData() {
             myLines.value[i][1] = myLines.value[i][1]+myLines.value[i][2]+myLines.value[i][3];
             myLines.value[i].splice(2,2);
           }else{
-            console.log("Erreur de parsing !")
+            
+            console.log("Erreur de parsing ! : ", myLines.value[i])
           }
       }
 
