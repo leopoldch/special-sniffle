@@ -6,7 +6,8 @@
 
 .grid-item{
 
-    width: 20vw;
+    width: 10vw;
+    height: auto;
     padding: 1%;
     margin: 1%;
     border-radius: 10px;
@@ -22,13 +23,14 @@
 
 
 .grid-wrapper{
-    width: 80vw;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
 }
 
 .grid-container{
-    width: 80%;
     display: grid;
-    grid-template-columns: repeat(6, 0.5fr);
+    grid-template-columns: repeat(6, 0.2fr);
     grid-template-rows: repeat(60, 0.05fr);
     grid-gap: 10px;
 }
