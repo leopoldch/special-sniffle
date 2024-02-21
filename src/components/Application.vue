@@ -1,8 +1,18 @@
 <script setup>
 import { ref } from 'vue'
 const text = ref('')
+const firstLine = ref([]);
 const myLines = ref([]);
-const colors = ["red", "orange", "blue", "green", "yellow", "pink", "purple", "cyan"]
+let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA"]
+
+function shuffleArray(array) {
+  for (let i = array.length -  1; i >  0; i--) {
+    const j = Math.floor(Math.random() * (i +  1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+colors = shuffleArray(colors)
 var UVs = new Map();
 
 function onInput(e) {
@@ -13,6 +23,7 @@ function onInput(e) {
     filterInputData();
   }
   console.log(myLines.value);
+  console.log(firstLine.value);
 
 }
 function filterInputData() {
@@ -20,7 +31,6 @@ function filterInputData() {
     const words = text.value.split(" ");
     let filteredData = words.filter(word => word != "")
     const nbUV = parseInt(filteredData[2]);
-    const firstLine = ref([]);
     firstLine.value.push(filteredData[0]);
     firstLine.value.push(filteredData[1]);
     firstLine.value.push(filteredData[2]);
@@ -76,17 +86,18 @@ function filterInputData() {
       myLines.value[i].splice(myLines.value[i].length-1,1);
       myLines.value[i].push(temp[0]);
       myLines.value[i].push(temp[1]);
-
-
     }
+
+    myLines.value.splice(0,1);
+
 }
 
 
 </script>
 
 <template>
-  <div v-if="myLines.length != 0 && myLines[0].length != 0">
-    <h1>Emploi du temps de : {{ myLines[0][0] }}</h1>
+  <div v-if="firstLine.length != 0">
+    <h1>Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
   <div v-else>
     <h1>Emploi du temps</h1>
@@ -94,12 +105,10 @@ function filterInputData() {
   <input class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
   <div class="grid-wrapper">
     <div class="grid-container" v-if="myLines.length >  0">
-    <div class="grid-item"  v-for="(item, index) in myLines" :key="index"  :style="{ backgroundColor: UVs.get(item[0]) }">
-    <div v-if="index != 0">
+    <div class="grid-item" v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]) }" >
       <h1>{{item[0]}}</h1>
         <h2>{{item[3]}}</h2>
         <h2>{{item[4]}} -- {{ item[1] }}</h2>
-    </div>   
     </div>
   </div>
   </div>

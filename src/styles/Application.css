@@ -1,8 +1,14 @@
 .input-text{
     width: 40vw;
     height: 25vh;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
+
+.test{
+    background-color: pink;
+}
 
 .grid-item{
 
