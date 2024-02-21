@@ -5,10 +5,12 @@
 }
 
 .input-text{
+    margin-top: 3%;
     width: 40vw;
     height: 25vh;
     white-space: pre-wrap;
     word-wrap: break-word;
+    border-radius: 5px;
 }
 
 
@@ -99,7 +101,8 @@
 }
 
 .button-container{
-    width: 15%;
+    width: 10vw;
+    height: 7vh;
     padding: 1%;
     margin:1%;
 }
@@ -111,7 +114,8 @@
     width: 100%;
     height: 100%;
     border-width: 0.1;
-    border-color: lightgrey;
+    border-color: black;
     border-style: solid;
+    padding: 3%;
 }
 

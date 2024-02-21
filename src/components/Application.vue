@@ -8,6 +8,7 @@ let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", 
 "#6A5ACD", "#F4A460"]
 var UVs = new Map();
 var days = new Map();
+const errors = ref(false)
 
 days.set("LUNDI...", 2)
 days.set("MARDI...", 3)
@@ -82,11 +83,17 @@ function onInput(e) {
     myLines.value = [];
     firstLine.value = []
   }else{
-    filterInputData();
-    Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
-    Cookies.set('EDT', JSON.stringify(myLines.value),{ expires: undefined });
-    Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
-    console.log(JSON.stringify(myLines.value));
+    try{
+      filterInputData();
+      Cookies.set('FIRTLINE', firstLine.value,{ expires: undefined });
+      Cookies.set('EDT', JSON.stringify(myLines.value),{ expires: undefined });
+      Cookies.set('UVS', JSON.stringify(Array.from(UVs.entries())), {expires : undefined});
+      console.log(JSON.stringify(myLines.value));
+    }catch(error){
+      error.value = true;
+      console.log("erreur d'input")
+    }
+
   }
   console.log(myLines.value);
   console.log(firstLine.value);
@@ -174,11 +181,14 @@ function filterInputData() {
 </script>
 
 <template>
-  <div v-if="firstLine.length != 0">
+  <div v-if="text.length > 40">
     <h1 class="title-scheluded">Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
-  <div v-else>
+  <div v-else-if="text.length === 0">
     <h1 class="title-scheluded">Emploi du temps</h1>
+  </div>
+  <div v-else>
+    <h1 class="title-scheluded">Emploi du temps : Erreur d'entrée, veuillez réinitialiser et recopier coller</h1>
   </div>
   
   <input v-if="firstLine.length == 0" class="input-text" type="text" :value="text" @input="onInput" placeholder="Copiez collez votre emploi du temps  ici ...">
