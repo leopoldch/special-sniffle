@@ -70,7 +70,7 @@ function exportToPDF(){
   jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
 };
   html2pdf().set(opt).from(element).save()
-};
+}
 
 
 
@@ -133,12 +133,12 @@ function filterInputData() {
     for(let i=2+nbUV+1; i<filteredData.length; i++){
       let verifier = false;
       if(UVs.has(filteredData[i])){
-          verifier = true;
+          verifier = true
       }
       if(verifier){
               myLines.value.push(line.value);
               line.value = [];
-              line.value.push(filteredData[i]);
+              line.value.push(filteredData[i])
 
       }else{
           if(filteredData[i].substring(0,1) === "/"){
@@ -149,12 +149,12 @@ function filterInputData() {
             line.value.push(myLines.value[myLines.value.length -1][2])
             line.value.push(filteredData[i].substring(1,filteredData[i].length))
           }else{
-            line.value.push(filteredData[i]);
+            line.value.push(filteredData[i])
           }
       }
 
     if(i === filteredData.length-1){
-        myLines.value.push(line.value);
+        myLines.value.push(line.value)
     }
     }
 
@@ -188,8 +188,7 @@ function filterInputData() {
       console.log(pushTime(temp[0]))
     }
 
-    myLines.value.splice(0,1);
-
+    myLines.value.splice(0,1)
 }
 
 
