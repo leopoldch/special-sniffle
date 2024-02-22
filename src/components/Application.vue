@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import Cookies from 'js-cookie';
 import html2pdf from 'html2pdf.js';
+import Footer from './Footer.vue'
 
 const text = ref('')
 const firstLine = ref([]);
@@ -237,6 +238,8 @@ function filterInputData() {
 </script>
 
 <template>
+  <div class="taskbar">
+
   <div v-if="text.length > 4">
     <h1 class="title-scheluded">Emploi du temps de : {{ firstLine[0] }}</h1>
   </div>
@@ -251,6 +254,7 @@ function filterInputData() {
     <p>Indication : Veuillez appuyer sur le bouton de réinitialisation et renouvelez la tentative.</p>
   </div>
   </div>
+</div>
   <div class="indications" v-if="text.length === 0 ">
     <p>Indication : vous devez copier coller le texte à partir de votre login et jusqu'à la dernière ligne de vos UVs</p>
   </div>
@@ -259,23 +263,7 @@ function filterInputData() {
   <input v-if="firstLine.length ==  0" class="input-text" type="text" :value="text" @input="onInput" :placeholder="`Copiez collez votre emploi du temps  ici...`">
   
 
-  <div class="action-wrapper">
-    <div v-if="myLines.length > 4" class="button2-container">
-      <button class="button" @click="rerollColors">Couleurs aléatoires</button>
-    </div>
-    <div v-if="myLines.length > 4" class="button2-container">
-      <button class="button" @click="applyTheme1">Thème 1</button>
-    </div>
-    <div v-if="myLines.length > 4" class="button2-container">
-      <button class="button" @click="applyTheme2">Thème 2</button>
-    </div>
-    <div v-if="myLines.length > 4" class="button2-container">
-      <button class="button" @click="exportToPDF">Export PDF</button>
-    </div>
-    <div class="button1-container">
-      <button class="button" @click="clearStorage" >Réinitialiser</button>
-    </div>
-  </div>
+  
   <div class="grid-wrapper" id="edt" >
     <div class="grid-container-title-wrapper">
       <div class="grid-container-title" v-if="myLines.length >  0">
@@ -328,10 +316,27 @@ function filterInputData() {
       </div>
     </div>
     
+    <div class="action-wrapper">
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="rerollColors">Couleurs aléatoires</button>
+    </div>
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="applyTheme1">Thème 1</button>
+    </div>
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="applyTheme2">Thème 2</button>
+    </div>
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="exportToPDF">Export PDF</button>
+    </div>
+    <div class="button1-container">
+      <button class="button" @click="clearStorage" >Réinitialiser</button>
+    </div>
+  </div>
 
 
 
-
+<Footer/>
 </template>
 
 <style>

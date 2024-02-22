@@ -1,0 +1,22 @@
+.main-wrapper-footer{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #323239;
+    height: 4vh;
+    width: 100vw;
+    margin-top: 4%;
+}
+
+.main-wrapper-footer > div > a{
+    text-decoration: none;
+}
+
+
+.main-wrapper-footer > div > p,.main-wrapper-footer > div > a >p {
+    color: wheat;
+    font-size: larger;
+    font-weight: bolder;
+}

@@ -27,9 +27,7 @@ export default {
 }
 
 #body{
-  //background-color: #b7c0c8;
   background-color: #F7F7F7;
-
 }
 
 </style>
