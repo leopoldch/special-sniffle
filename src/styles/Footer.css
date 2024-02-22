@@ -20,3 +20,12 @@
     font-size: larger;
     font-weight: bolder;
 }
+
+@media only screen and (min-device-width : 0px) and (max-device-width : 1024px) {
+    .main-wrapper-footer > div > p,.main-wrapper-footer > div > a >p {
+        font-size: small;
+    }
+
+
+}
+
