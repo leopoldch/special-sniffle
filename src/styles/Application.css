@@ -220,6 +220,7 @@ input[type="text"] {
 
     .grid-container-horaires{
         grid-template-rows: repeat(60, 0.17fr);
+        margin-right: 1%;
     }
 
     .grid-container{
