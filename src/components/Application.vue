@@ -7,6 +7,8 @@ import Footer from './Footer.vue'
 const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
+const jours = ref([]);
+const semaine = ref([]);
 let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
 "#6A5ACD", "#F4A460", "ffbdfd", "bde0ff", "cbbd97", "#E8AABE", "#4AA3A2", "#C8BED1", "#B4F2E5", "#F3D4B0", "#F7AF9D",
 "#B384A7", "#CE8F8A"]
@@ -14,7 +16,8 @@ const UVs = ref(new Map());
 var days = new Map();
 
 
-console.log(UVs.value)
+//console.log(UVs.value)
+//console.log(text)
 
 days.set("LUNDI...", 1)
 days.set("MARDI...", 2)
@@ -135,6 +138,158 @@ function pushTime(mystring){
 
 }
 
+/*
+function lignes (texte){
+	let NombreUV=Number(texte[35])
+  console.log(NombreUV)
+	let debut=33+NombreUV*7
+	let ligne=[]
+	let dec=0;
+	for (let i=0;i<texte.length/53;i++){
+		if (texte[debut+(i*53+dec)]===" "){
+			dec+=1
+		}
+		
+		ligne[i]=texte.slice(debut+(i*53),debut+((i+1)*53))
+
+		}
+	return ligne
+
+}
+function CreerSemaine(aaa){
+
+	let ligne = lignes(aaa)
+	
+	ligne = ligne.filter(item => item !== '');//supprime les lignes vides
+
+
+	for (let i=1;i<ligne.length;i++){
+		ligne[i]=ligne[i].split(" ").filter(item => item !== '');
+		ligne[i][ligne[i].length-1]=ligne[i][ligne[i].length-1].split(",")
+		if (ligne[i][1]==="C"){ligne[i][1]="Cours"}
+		if (ligne[i][1]==="T"){ligne[i][1]="TP"}
+		if (ligne[i][1]==="D"){ligne[i][1]="TD"}
+	}
+	let sem = [["LUNDI..."],["MARDI..."],["MERCREDI"],["JEUDI..."],["VENDREDI"], ["SAMEDI.."]]
+	let semaine = [[],[],[],[],[],[]]
+
+
+function planning (txtJour){
+	for (let i=1;i<ligne.length;i++){
+		if(ligne[i][[ligne[i].length-2]]===txtJour){
+			semaine[j].push([ligne[i][0],ligne[i][ligne[i].length-1][0],ligne[i][ligne[i].length-1][2].slice(2),ligne[i][1]])
+			}
+		}
+	}
+	for (var j = 0;j<semaine.length;j++){
+		planning(sem[j][0])
+	}
+	return semaine
+}
+*/
+
+console.log(myLines.value)
+
+jours.value.push("LUNDI...");
+jours.value.push("MARDI...");
+jours.value.push("MERCREDI");
+jours.value.push("JEUDI...");
+jours.value.push("VENDREDI");
+jours.value.push("SAMEDI..");
+//console.log(jours.value[0])
+
+
+function buildSemaine(semaine, day){
+  semaine.push([day[0], day[3], day[4], day[1]])
+}
+
+
+function parsingICS(text, semaine){
+  //console.log("test" + semaine.value)
+  //console.log("test" + semaine[0])
+  semaine.value = []
+  semaine.value.push([], [], [], [], [], [])
+  for(let i = 0; i < text.length; i++){
+    switch (text[i][2]){
+      case 'LUNDI...':
+        buildSemaine(semaine.value[0], text[i]);
+        break;
+      case 'MARDI...':
+        buildSemaine(semaine.value[1], text[i]);
+        break;
+      case 'MERCREDI':
+        buildSemaine(semaine.value[2], text[i]);
+        break;
+      case 'JEUDI...':
+        buildSemaine(semaine.value[3], text[i]);
+        break;
+      case 'VENDREDI':
+        buildSemaine(semaine.value[4], text[i]);
+        break;
+      case 'SAMEDI..':
+        buildSemaine(semaine.value[5], text[i]);
+        break;
+    }
+  }
+  console.log(semaine);
+}
+
+
+
+//console.log(semaine)
+//semaine.value[0].push("test")
+//console.log(semaine.value[0][0])
+
+
+
+
+//let semaine=CreerSemaine(myLines.value)
+
+function CreerICS(semaine){
+  parsingICS(myLines.value, semaine)
+	let ics =""
+	let uid=0
+ics+=`BEGIN:VCALENDAR
+PRODID:Calendar
+VERSION:2.0
+`
+	for(let i=0;i<semaine.value.length;i++){
+	console.log(semaine.value)
+		for(let j=0;j<semaine.value[i].length;j++){
+		console.log(i,j)
+			ics+=`BEGIN:VEVENT
+UID:`+uid+`@default
+CLASS:PUBLIC
+DESCRIPTION:`+semaine.value[i][j][3]+" de "+semaine.value[i][j][0]+" en "+semaine.value[i][j][2]+`
+DTSTAMP;VALUE=DATE-TIME:20240221T230000	
+DTSTART;VALUE=DATE-TIME:202402`+(19+i)+`T`+semaine.value[i][j][1].slice(0,2)+semaine.value[i][j][1].slice(3,5)+`00
+DTEND;VALUE=DATE-TIME:202402`+(19+i)+`T`+semaine.value[i][j][1].slice(6,8)+semaine.value[i][j][1].slice(9,11)+`00
+RRULE:FREQ=WEEKLY;COUNT=18
+LOCATION:`+semaine.value[i][j][2]+`
+SUMMARY;LANGUAGE=en-us:`+semaine.value[i][j][0]+" "+semaine.value[i][j][3]+`
+TRANSP:TRANSPARENT
+END:VEVENT
+`  
+	uid+=1
+		}
+
+	}
+	ics+=`END:VCALENDAR`
+	console.log("aaaaa"+ics)
+	return ics
+}
+
+
+function downloadICS() {
+	const icsContent = CreerICS(semaine.value); 
+	const element = document.createElement('a');
+	element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent));
+	element.setAttribute('download', 'emploi_du_temps.ics');
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element);
+}
+
 
 function onInput(e) {
   text.value = e.target.value
@@ -157,6 +312,8 @@ function onInput(e) {
   console.log(firstLine.value);
 
 }
+
+
 function filterInputData() {
     myLines.value = []
     const words = text.value.split(" ");
@@ -328,6 +485,9 @@ function filterInputData() {
     </div>
     <div v-if="myLines.length > 4" class="button2-container">
       <button class="button" @click="exportToPDF">Export PDF</button>
+    </div>
+    <div v-if="myLines.length > 4" class="button2-container">
+      <button class="button" @click="downloadICS">Export ICS</button>
     </div>
     <div class="button1-container">
       <button class="button" @click="clearStorage" >Réinitialiser</button>
