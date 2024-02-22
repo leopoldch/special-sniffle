@@ -257,6 +257,7 @@ function filterInputData() {
 </div>
   <div class="indications" v-if="text.length === 0 ">
     <p>Indication : vous devez copier coller le texte à partir de votre login et jusqu'à la dernière ligne de vos UVs</p>
+    <p>Ce site web est fait pour être utilisé sur un poste de travail et non sur mobile ou tablette.</p>
   </div>
 
   
