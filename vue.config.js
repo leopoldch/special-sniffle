@@ -4,8 +4,9 @@ module.exports = defineConfig({
   devServer: {
     allowedHosts: [
       'localhost',
-      'example.com',
-      '192.168.1.1',
+      'i-etix.lchappuis.fr',
+      'front.lchappuis.fr',
+      'lchappuis.fr'
     ],
   },
 })
