@@ -7,7 +7,8 @@ const text = ref('')
 const firstLine = ref([]);
 const myLines = ref([]);
 let colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
-"#6A5ACD", "#F4A460"]
+"#6A5ACD", "#F4A460", "ffbdfd", "bde0ff", "cbbd97", "#E8AABE", "#4AA3A2", "#C8BED1", "#B4F2E5", "#F3D4B0", "#F7AF9D",
+"#B384A7", "#CE8F8A"]
 var UVs = new Map();
 var days = new Map();
 
