@@ -218,6 +218,17 @@ input[type="text"] {
         padding-bottom: 20%;
     }
 
-}
+    .grid-container-horaires{
+        grid-template-rows: repeat(60, 0.17fr);
+    }
 
+    .grid-container{
+        grid-template-rows: repeat(60, 0.17fr);
+    }
+
+    .grid-subitem{
+        font-size:xx-small;
+    }
+
+}
 
