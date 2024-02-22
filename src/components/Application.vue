@@ -138,55 +138,7 @@ function pushTime(mystring){
 
 }
 
-/*
-function lignes (texte){
-	let NombreUV=Number(texte[35])
-  console.log(NombreUV)
-	let debut=33+NombreUV*7
-	let ligne=[]
-	let dec=0;
-	for (let i=0;i<texte.length/53;i++){
-		if (texte[debut+(i*53+dec)]===" "){
-			dec+=1
-		}
-		
-		ligne[i]=texte.slice(debut+(i*53),debut+((i+1)*53))
 
-		}
-	return ligne
-
-}
-function CreerSemaine(aaa){
-
-	let ligne = lignes(aaa)
-	
-	ligne = ligne.filter(item => item !== '');//supprime les lignes vides
-
-
-	for (let i=1;i<ligne.length;i++){
-		ligne[i]=ligne[i].split(" ").filter(item => item !== '');
-		ligne[i][ligne[i].length-1]=ligne[i][ligne[i].length-1].split(",")
-		if (ligne[i][1]==="C"){ligne[i][1]="Cours"}
-		if (ligne[i][1]==="T"){ligne[i][1]="TP"}
-		if (ligne[i][1]==="D"){ligne[i][1]="TD"}
-	}
-	let sem = [["LUNDI..."],["MARDI..."],["MERCREDI"],["JEUDI..."],["VENDREDI"], ["SAMEDI.."]]
-	let semaine = [[],[],[],[],[],[]]
-
-
-function planning (txtJour){
-	for (let i=1;i<ligne.length;i++){
-		if(ligne[i][[ligne[i].length-2]]===txtJour){
-			semaine[j].push([ligne[i][0],ligne[i][ligne[i].length-1][0],ligne[i][ligne[i].length-1][2].slice(2),ligne[i][1]])
-			}
-		}
-	}
-	for (var j = 0;j<semaine.length;j++){
-		planning(sem[j][0])
-	}
-	return semaine
-}
-*/
 
 console.log(myLines.value)
 
