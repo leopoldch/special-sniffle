@@ -206,3 +206,18 @@ input[type="text"] {
 
 
 
+@media only screen and (min-device-width : 0) and (max-device-width : 1024px) {
+    .button1-container, .button2-container{
+        width: 30vw;
+        height: 4vh;
+        margin:1%;
+    }
+
+    .action-wrapper{
+        margin-top: 4%;
+        padding-bottom: 20%;
+    }
+
+}
+
+
