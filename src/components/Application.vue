@@ -40,12 +40,10 @@ function rerollColors(){
 }
 
 function applyTheme1(){
-  colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
-  "#6A5ACD", "#F4A460", "ffbdfd", "bde0ff", "cbbd97", "#E8AABE", "#4AA3A2", "#C8BED1", "#B4F2E5", "#F3D4B0", "#F7AF9D",
-  "#B384A7", "#CE8F8A"]
+      let colorstheme1 = ["#5c98c0", "#70b1d4", "#84cae7", "#a1e1cf", "#bdf7b7", "#8ee3a7", "#5fcf97", "#30bb87","#97a97c","#6ab6dc","#c5cdb9","#e9f5db"]
   let i =  0;
   for (const [key] of UVs.value) {
-    UVs.value.set(key, colors[i]);
+    UVs.value.set(key, colorstheme1[i]);
     i++;
   }
   Cookies.set('UVS', JSON.stringify(Array.from(UVs.value.entries())), {expires : undefined});
@@ -53,13 +51,10 @@ function applyTheme1(){
 }
 
 function applyTheme2(){
-  colors = ["#20B2AA", "#FAEBD7", "#008B8B", "#BDB76B", "#8FBC8F", "#DAA520", "#CD5C5C", "#66CDAA","#808000","#6B8E23","#FFE4B5","#FFE4E1","#EEE8AA", "#CD853F", "#BC8F8F",
-  "#6A5ACD", "#F4A460", "ffbdfd", "bde0ff", "cbbd97", "#E8AABE", "#4AA3A2", "#C8BED1", "#B4F2E5", "#F3D4B0", "#F7AF9D",
-  "#B384A7", "#CE8F8A"]
-  colors = colors.reverse()
+        let colorstheme2 = ['#8e94f2', '#bbdefb', '#9fa0ff', '#90caf9', '#ada7ff', '#64b5f6', '#bbadff', '#42a5f5', '#cbb2fe', '#2196f3', '#dab6fc', '#1e88e5'];
   let i =  0;
   for (const [key] of UVs.value) {
-    UVs.value.set(key, colors[i]);
+    UVs.value.set(key, colorstheme2[i]);
     i++;
   }
   Cookies.set('UVS', JSON.stringify(Array.from(UVs.value.entries())), {expires : undefined});
