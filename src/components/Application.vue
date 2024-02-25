@@ -109,7 +109,7 @@ function exportToPDF(){
   filename:     'sniffle_UTC_edt.pdf',
   image:        { type: 'jpeg', quality:   75 },
   html2canvas:  { scale:   1 },
-  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
 };
   html2pdf().set(opt).from(element).save()
 }
