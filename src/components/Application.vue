@@ -411,7 +411,7 @@ function filterInputData() {
           
             <div class="grid-item"  v-for="(item, index) in myLines" :key="index" :style="{ backgroundColor: UVs.get(item[0]), gridRowStart: item[5][0], gridRowEnd: item[5][1] , gridColumn: days.get(item[2])}">
             <div class="grid-subitem">
-              <p>{{item[0]}}<br>{{ item[3] + " - " }}{{item[4] + " - " }} {{ item[1] }}</p>
+              <p>{{item[0]+" "+item[1]}}<br>{{ item[3] + " - " }}{{item[4]}}</p>
             </div>
           </div>
 
