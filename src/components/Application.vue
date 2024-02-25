@@ -396,7 +396,7 @@ function filterInputData() {
 
     <div v-if="myLines.length >  0" class="grid-container-items-wrapper">
       <div class="grid-container-horaires">
-          <span v-for="i in  60" :key="i">
+          <span v-for="i in  56" :key="i">
             <div class="horaires" :style="{ gridColumn:  1 }">
               <p v-if="i%4 == 0">{{ i/4 +7 }}:00</p>
             </div>
