@@ -139,7 +139,7 @@ input[type="text"] {
 }
 
 .grid-separator{
-    border:  1px dotted grey; 
+    border:  1px dotted #F1F1F1; 
     width: 100%;
     height: 100%;
 }
