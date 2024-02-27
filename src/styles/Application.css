@@ -199,11 +199,6 @@ input[type="text"] {
     padding: 7px;
 }
 
-.button1-container :hover, .button2-container :hover{
-    height: 4.5vh;
-    width: auto;
-    transition: all 2s ease-in-out;
-}
 
 .button:hover{
     cursor: pointer;
