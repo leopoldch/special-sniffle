@@ -10,7 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ACTION_PK }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -19,10 +26,13 @@ jobs:
           username: ${{ secrets.DEBIAN_SERVER_USERNAME }}
           key: ${{ secrets.ACTION_PK }}
           script: |
+            set -e  # Arrêter l'exécution en cas d'erreur
             cd ~
-            rm -rf special-sniffle
-            git clone git@github.com:leopoldch/special-sniffle.git
+            if [ -d special-sniffle ]; then
+              rm -rf special-sniffle
+            fi
+            git clone --branch main git@github.com:leopoldch/special-sniffle.git
             cd special-sniffle
             npm install --production
             npm run build
-            sudo /bin/systemctl restart sniffle.service
+            sudo systemctl try-restart sniffle.service
