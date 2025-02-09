@@ -17,16 +17,5 @@ export default {
   },
   configureWebpack: {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-    optimization: {
-      minimize: process.env.NODE_ENV === 'production',
-      splitChunks: {
-        chunks: 'all',
-      },
-    },
-    performance: {
-      hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000,
-    },
   },
 }

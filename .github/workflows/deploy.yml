@@ -33,6 +33,6 @@ jobs:
             fi
             git clone --branch main git@github.com:leopoldch/special-sniffle.git
             cd special-sniffle
-            npm install --production
+            npm install
             npm run build
             sudo systemctl try-restart sniffle.service
