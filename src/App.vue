@@ -4,17 +4,14 @@ import Application from './components/Application.vue'
 export default {
   name: 'App',
   components: {
-    Application
-  }
+    Application,
+  },
 }
 </script>
 
-
 <template>
-  <Application msg="Coucou zeubi"/>
+  <Application msg="Coucou zeubi" />
 </template>
-
-
 
 <style>
 #app {
@@ -26,8 +23,7 @@ export default {
   margin-top: 60px;
 }
 
-#body{
-  background-color: #F7F7F7;
+#body {
+  background-color: #f7f7f7;
 }
-
 </style>
