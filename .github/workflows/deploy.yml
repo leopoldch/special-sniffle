@@ -17,10 +17,9 @@ jobs:
         with:
           host: ${{ secrets.DEBIAN_SERVER_HOST }}
           username: ${{ secrets.DEBIAN_SERVER_USERNAME }}
-          password: ${{ secrets.DEBIAN_SERVER_PASSWORD }}
+          key: ${{ secrets.ACTION_PK }}
           script: |
-            cd 
-            cd special-sniffle
+            cd ~/special-sniffle
             git pull origin main
             npm install --production
             npm run build
