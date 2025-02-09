@@ -26,7 +26,10 @@ SOFTWARE.
 <template>
   <div class="main-wrapper-footer">
     <div class="footer-item1">
-      <a href="https://github.com/leopoldch/special-sniffle"
+      <a
+        href="https://github.com/leopoldch/special-sniffle/issues/new?template=Blank"
+        target="_blank"
+        rel="noopener noreferrer"
         ><p>report a bug</p></a
       >
     </div>
