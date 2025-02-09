@@ -1,16 +1,16 @@
 <script>
-import Application from './components/Application.vue'
+import MainView from './components/MainView.vue'
 
 export default {
   name: 'App',
   components: {
-    Application,
+    MainView,
   },
 }
 </script>
 
 <template>
-  <Application msg="Coucou zeubi" />
+  <MainView />
 </template>
 
 <style>

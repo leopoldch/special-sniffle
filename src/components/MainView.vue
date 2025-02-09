@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import Cookies from 'js-cookie'
 import html2pdf from 'html2pdf.js'
-import Footer from './Footer.vue'
+import MainFooter from './MainFooter.vue'
 
 const text = ref('')
 const firstLine = ref([])
@@ -541,7 +541,7 @@ function filterInputData() {
     </div>
   </div>
 
-  <Footer />
+  <MainFooter />
 </template>
 
 <style>
