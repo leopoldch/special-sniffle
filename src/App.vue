@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <MainView />
+  <MainView message="coucou" />
 </template>
 
 <style>

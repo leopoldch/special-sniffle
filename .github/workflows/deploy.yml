@@ -19,5 +19,9 @@ jobs:
           username: ${{ secrets.DEBIAN_SERVER_USERNAME }}
           password: ${{ secrets.DEBIAN_SERVER_PASSWORD }}
           script: |
+            cd 
             cd special-sniffle
-            git pull
+            git pull origin main
+            npm install --production
+            npm run build
+            sudo systemctl restart special-sniffle.service

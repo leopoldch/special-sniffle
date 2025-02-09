@@ -1,5 +1,5 @@
 export default {
-  publicPath: process.env.NODE_ENV === 'production' ? '/my-app/' : '/',
+  publicPath: '/',
   transpileDependencies: [],
   devServer: {
     compress: true,
