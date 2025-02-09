@@ -35,4 +35,4 @@ jobs:
             cd special-sniffle
             npm install
             npm run build
-            sudo /bin/systemctl try-restart sniffle.service
+            sudo /bin/systemctl restart sniffle.service
