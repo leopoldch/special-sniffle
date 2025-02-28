@@ -279,53 +279,61 @@ function CreerICS(semaine) {
 PRODID:Calendar
 VERSION:2.0
 `
+
+  // 1. On récupère la date d’aujourd’hui
+  let dateMonday = new Date()
+
+  // 2. On calcule le jour de la semaine (0 = dimanche, 1 = lundi, 2 = mardi, …)
+  let dayOfWeek = dateMonday.getDay()
+
+  // 3. On ramène dateMonday au lundi de cette semaine
+  //    - Si dayOfWeek = 1 (lundi), on ne modifie pas la date
+  //    - Si dayOfWeek = 0 (dimanche), on recule de 6 jours pour tomber au lundi précédent
+  //    - Sinon, on recule de (dayOfWeek - 1) jours
+  let offset = dayOfWeek === 0 ? 6 : dayOfWeek - 1
+  dateMonday.setDate(dateMonday.getDate() - offset)
+
+  // 4. Pour chaque ligne de la variable semaine
   for (let i = 0; i < semaine.value.length; i++) {
-    console.log(semaine.value)
+    // On clone la date du lundi, puis on l’avance de i jours
+    let currentDate = new Date(dateMonday)
+    currentDate.setDate(currentDate.getDate() + i)
+
+    // Mise en forme de la date YYYYMMDD
+    let year = currentDate.getFullYear()
+    let month = String(currentDate.getMonth() + 1).padStart(2, '0')
+    let day = String(currentDate.getDate()).padStart(2, '0')
+    let dateString = `${year}${month}${day}`
+
+    // 5. Pour chaque événement dans semaine.value[i]
     for (let j = 0; j < semaine.value[i].length; j++) {
-      console.log(i, j)
-      ics +=
-        `BEGIN:VEVENT
-UID:` +
-        uid +
-        `@default
+      // On récupère l’horaire de début (startHour:startMin) et de fin (endHour:endMin)
+      let startHour = semaine.value[i][j][1].slice(0, 2)
+      let startMin = semaine.value[i][j][1].slice(3, 5)
+      let endHour = semaine.value[i][j][1].slice(6, 8)
+      let endMin = semaine.value[i][j][1].slice(9, 11)
+
+      // 6. On concatène les informations nécessaires au format ICS
+      ics += `BEGIN:VEVENT
+UID:${uid}@default
 CLASS:PUBLIC
-DESCRIPTION:` +
-        semaine.value[i][j][3] +
-        ' de ' +
-        semaine.value[i][j][0] +
-        ' en ' +
-        semaine.value[i][j][2] +
-        `
-DTSTAMP;VALUE=DATE-TIME:20240221T230000	
-DTSTART;VALUE=DATE-TIME:202402` +
-        (19 + i) +
-        `T` +
-        semaine.value[i][j][1].slice(0, 2) +
-        semaine.value[i][j][1].slice(3, 5) +
-        `00
-DTEND;VALUE=DATE-TIME:202402` +
-        (19 + i) +
-        `T` +
-        semaine.value[i][j][1].slice(6, 8) +
-        semaine.value[i][j][1].slice(9, 11) +
-        `00
+DESCRIPTION:${semaine.value[i][j][3]} de ${semaine.value[i][j][0]} en ${semaine.value[i][j][2]}
+DTSTAMP;VALUE=DATE-TIME:${dateString}T000000
+DTSTART;VALUE=DATE-TIME:${dateString}T${startHour}${startMin}00
+DTEND;VALUE=DATE-TIME:${dateString}T${endHour}${endMin}00
 RRULE:FREQ=WEEKLY;COUNT=18
-LOCATION:` +
-        semaine.value[i][j][2] +
-        `
-SUMMARY;LANGUAGE=en-us:` +
-        semaine.value[i][j][0] +
-        ' ' +
-        semaine.value[i][j][3] +
-        `
+LOCATION:${semaine.value[i][j][2]}
+SUMMARY;LANGUAGE=en-us:${semaine.value[i][j][0]} ${semaine.value[i][j][3]}
 TRANSP:TRANSPARENT
 END:VEVENT
 `
-      uid += 1
+      uid++
     }
   }
+
+  // Fermeture du calendrier ICS
   ics += `END:VCALENDAR`
-  console.log('aaaaa' + ics)
+  console.log('ICS généré :', ics)
   return ics
 }
 
